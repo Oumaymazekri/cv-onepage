@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV - Oumayma Zekri</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cv-container {
+      width: 80%;
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #0077b6;
+      padding-bottom: 15px;
+      gap: 20px;
+    }
+
+    header .photo img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0077b6;
+    }
+
+    header .header-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #023e8a;
+    }
+
+    header h2 {
+      font-size: 1em;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    .infos {
+      margin-top: 20px;
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .contact p {
+      margin: 5px 0;
+    }
+
+    .contact a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section h3 {
+      border-left: 5px solid #0077b6;
+      padding-left: 10px;
+      color: #023e8a;
+      margin-bottom: 10px;
+    }
+
+    .section ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .section li {
+      margin-bottom: 10px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skills span {
+      background: #0077b6;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9em;
+    }
+
+    .langues,
+    .interets {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .langues li,
+    .interets li {
+      background: #90e0ef;
+      color: #023e8a;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header .header-text {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-container">
+    <header>
+      <div class="header-text">
+        <h1>Oumayma Zekri</h1>
+        <h2>Étudiante diplômée en développement des systèmes d'information</h2>
+      </div>
+      </header>
+
+    <section class="infos">
+      <div class="contact">
+        <p><strong>📧</strong> oum18157@gmail.com</p>
+        <p><strong>📞</strong> 22 800 587</p>
+        <p><strong>🏠</strong> 05 rue Khmais Tarnen, Hammam-Lif</p>
+        <p><strong>🎂</strong> Née le 09/09/2001</p>
+        <p>
+          <strong>🌐</strong>
+          <a href="https://www.linkedin.com/in/OUMAYMA%20ZEKRI" target="_blank">LinkedIn</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>🎓 Diplômes et Formations</h3>
+      <ul>
+        <li><strong>Licence Appliquée en Informatique</strong><br />ISET Tozeur (2022–2024)</li>
+        <li><strong>Baccalauréat Sciences Expérimentales</strong><br />Lycée Hammam-Lif (2021–2022)</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>💼 Expériences Professionnelles</h3>
+      <ul>
+        <li>
+          <strong>Stagiaire PFE</strong> — SRA Integration, Tunis (Jan–Mai 2024)<br />
+          Développement d’une application mobile e-commerce.
+        </li>
+        <li>
+          <strong>Stagiaire</strong> — CAVEO Automotive, Tunis (Jan–Fév 2023)<br />
+          Développement d’une plateforme de gestion clients.
+        </li>
+        <li>
+          <strong>Stagiaire</strong> — DUSTCODING, Tozeur (Jan–Fév 2022)<br />
+          Développement d’un site web de vente de voitures.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>🧠 Compétences</h3>
+      <div class="skills">
+        <span>HTML</span>
+        <span>Flutter</span>
+        <span>Node.js</span>
+        <span>Symfony</span>
+        <span>Angular</span>
+        <span>Figma</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>🌍 Langues</h3>
+      <ul class="langues">
+        <li>Arabe</li>
+        <li>Français</li>
+        <li>Anglais</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>❤️ Centres d’intérêt</h3>
+      <ul class="interets">
+        <li>Sport</li>
+        <li>Musique</li>
+        <li>Lecture</li>
+        <li>Réseaux sociaux</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
