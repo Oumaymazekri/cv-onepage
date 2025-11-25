@@ -1,0 +1,6 @@
+# DEVOPS-LAB/ansible/main.yml
+- hosts: localhost
+  become: yes
+  roles:
+    - docker
+    - jenkins

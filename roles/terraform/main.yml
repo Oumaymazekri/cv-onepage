@@ -1,0 +1,36 @@
+---
+# Rôle : terraform
+# Installe Terraform depuis le dépôt officiel HashiCorp
+
+- name: Installer les dépendances apt pour HTTPS
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - software-properties-common
+      - curl
+    state: present
+    update_cache: yes
+
+- name: Télécharger et ajouter la clé GPG HashiCorp
+  ansible.builtin.command: >
+    wget -O- https://apt.releases.hashicorp.com/gpg
+    | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  args:
+    warn: false
+
+- name: Ajouter le dépôt HashiCorp pour Terraform
+  ansible.builtin.shell: >
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main"
+    | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  args:
+    warn: false
+
+- name: Mettre à jour la cache apt
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Installer Terraform
+  ansible.builtin.apt:
+    name: terraform
+    state: present
+

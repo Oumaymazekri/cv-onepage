@@ -1,0 +1,33 @@
+---
+# Rôle : jenkins
+# Installe Jenkins et OpenJDK 17 sur Ubuntu
+
+- name: Installer OpenJDK 17
+  ansible.builtin.apt:
+    name: openjdk-17-jdk
+    state: present
+    update_cache: yes
+
+- name: Créer le dossier keyrings si nécessaire
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Télécharger la clé Jenkins dans /etc/apt/keyrings
+  ansible.builtin.get_url:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+    dest: /etc/apt/keyrings/jenkins-keyring.asc
+    mode: '0644'
+
+- name: Ajouter le dépôt Jenkins
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/"
+    state: present
+    update_cache: yes
+
+- name: Installer Jenkins
+  ansible.builtin.apt:
+    name: jenkins
+    state: present
+    update_cache: yes
