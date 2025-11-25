@@ -2,36 +2,33 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CRED = credentials('dockerhub-credentials')
+        DOCKER_IMAGE = "oumaymazekri/cv-test:latest"
         SLACK_WEBHOOK = credentials('slack-webhook')
-        IMAGE_NAME = "oumayma/cv-onepage"
-        IMAGE_TAG = "latest"
-    }
-
-    triggers {
-        pollSCM('H/5 * * * *') // Vérifie les changements toutes les 5 minutes
     }
 
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Oumaymazekri/cv-onepage.git'
+                git(
+                    url: 'https://github.com/oumaymazekri/cv-onepage.git',
+                    branch: 'main',
+                    credentialsId: 'github-credentials'
+                )
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                }
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'DOCKER_HUB_CRED') {
-                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-creds') {
+                        sh "docker push ${DOCKER_IMAGE}"
                     }
                 }
             }
@@ -39,19 +36,25 @@ pipeline {
     }
 
     post {
+
         success {
-            slackSend(
-                channel: '#general',
-                color: 'good',
-                message: "Pipeline réussie : Image Docker ${IMAGE_NAME}:${IMAGE_TAG} publiée !"
-            )
+            script {
+                sh """
+                curl -X POST -H 'Content-type: application/json' --data "{
+                    \\"text\\": \\":white_check_mark: SUCCESS - Job: ${env.JOB_NAME}, Build: #${env.BUILD_NUMBER}\\"
+                }" ${SLACK_WEBHOOK}
+                """
+            }
         }
+
         failure {
-            slackSend(
-                channel: '#general',
-                color: 'danger',
-                message: "Pipeline échouée ! Vérifie Jenkins."
-            )
+            script {
+                sh """
+                curl -X POST -H 'Content-type: application/json' --data "{
+                    \\"text\\": \\":x: FAILED - Job: ${env.JOB_NAME}, Build: #${env.BUILD_NUMBER}\\"
+                }" ${SLACK_WEBHOOK}
+                """
+            }
         }
     }
 }
